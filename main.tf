@@ -56,6 +56,28 @@ resource "aws_s3_bucket_object_lock_configuration" "terraform_state" {
   ]
 }
 
+resource "aws_kms_key" "terraform_state_key" {
+  description             = "This key is used to encrypt the terraform state bucket objects"
+}
+
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" {
+  bucket = aws_s3_bucket.terraform_state.bucket
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.terraform_state_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+
+  depends_on = [
+    aws_s3_bucket.terraform_state,
+    aws_kms_key.terraform_state_key
+  ]
+}
+
+
 resource "aws_dynamodb_table" "terraform_state_lock" {
   name           = "terraform-state-lock"
   read_capacity  = 1
