@@ -60,7 +60,17 @@ resource "aws_s3_bucket_object_lock_configuration" "terraform_state" {
 }
 
 resource "aws_kms_key" "terraform_state_key" {
+
   description = "This key is used to encrypt the terraform state bucket objects"
+}
+
+resource "aws_kms_alias" "terraform_state_key" {
+  name          = "alias/terraform_state_key"
+  target_key_id = aws_kms_key.terraform_state_key.key_id
+
+  depends_on = [
+    aws_kms_key.terraform_state_key
+  ]
 }
 
 
