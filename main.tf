@@ -1,5 +1,5 @@
-variable unique_id  {
-  type = string
+variable "unique_id" {
+  type        = string
   description = "Provide a unique id that can be used when creating your terraform state bucket"
 }
 
@@ -43,6 +43,7 @@ resource "aws_s3_bucket_versioning" "terraform_state" {
   ]
 }
 
+
 resource "aws_s3_bucket_object_lock_configuration" "terraform_state" {
   bucket = aws_s3_bucket.terraform_state.bucket
 
@@ -59,7 +60,7 @@ resource "aws_s3_bucket_object_lock_configuration" "terraform_state" {
 }
 
 resource "aws_kms_key" "terraform_state_key" {
-  description             = "This key is used to encrypt the terraform state bucket objects"
+  description = "This key is used to encrypt the terraform state bucket objects"
 }
 
 

@@ -1,0 +1,11 @@
+# Terraform-Setup
+This repository is an example of how to setup a S3 bucket that can be used to manage terraform state.
+
+## Getting Started
+- Update the `unique_id` with a new guid value
+- terraform init
+- terraform plan
+- terraform apply
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+I_WANT_TO_BE_REPLACED
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
