@@ -1,8 +1,10 @@
-locals {
-  unique_id = "53e1128e-bfc8-45d4-9000-9eb83f424d36"
+variable unique_id  {
+  type = string
+  description = "Provide a unique id that can be used when creating your terraform state bucket"
 }
+
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "${local.unique_id}-terraform-state-bucket"
+  bucket = "${var.unique_id}-terraform-state-bucket"
 
   object_lock_enabled = true
 
